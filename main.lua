@@ -30,10 +30,10 @@ local function entry(st, job)
     search = no_escape_opts or escape_opts.all or escape_opts.search,
   }
   local find_mode = escape_detect_modes.find and cx.active.finder ~= nil
-  local visual_mode = escape_detect_modes.visual and cx.active.mode.is_visual
+  local visual_mode = escape_detect_modes.visual and not cx.active.mode.is_normal
   local select_mode = escape_detect_modes.select and #cx.active.selected >= 1
   local filter_mode = escape_detect_modes.filter and cx.active.current.files.filter
-  local search_mode = escape_detect_modes.search and cx.active.current.cwd.is_search
+  local search_mode = escape_detect_modes.search and cx.active.current.cwd.spec.is_search
 
   if find_mode or visual_mode or select_mode or filter_mode or search_mode then
     ya.emit("escape", escape_opts)
